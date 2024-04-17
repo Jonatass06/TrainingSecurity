@@ -32,6 +32,31 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/api/cursos/{id}").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
+
+                    //User
+//                    Get (Um): Permite visualizar seus próprios detalhes de usuário.
+//                            Put: Permite atualizar seus próprios dados de usuário.
+//                            Delete: Permite excluir sua própria conta de usuário.
+//                            Patch: Permite fazer atualizações parciais em seus próprios dados de
+//                    usuário.
+//                            Aula (Apenas de Cursos que o Usuário Está Inscrito):
+//                    Get (Um): Permite visualizar detalhes de uma aula de um curso em que
+//                    está inscrito.
+//                    Get (Todos): Permite listar todas as aulas de cursos em que está
+//                    inscrito.
+//                            Inscrição (Apenas Inscrição e Cancelamento do Próprio Usuário):
+//                    Post (Inscrição): Permite que um usuário se inscreva em um curso.
+//                            Post (Cancelamento): Permite que um usuário cancele sua inscrição em
+//                    um curso.
+                    auth.requestMatchers(HttpMethod.GET, "/api/usuarios/{id}").authenticated();//o proprio usuario
+                    auth.requestMatchers(HttpMethod.PUT, "/api/usuarios/{id}").authenticated();//o proprio usuario
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/usuarios/{id}").authenticated();//o proprio usuario
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/usuarios/{id}").authenticated();//o proprio usuario
+                    auth.requestMatchers(HttpMethod.GET, "/api/cursos/{cursoId}/aulas/{aulaId}").authenticated();//cursos em que esta inscrito
+                    auth.requestMatchers(HttpMethod.GET, "/api/cursos/{cursoId}/aulas").authenticated();//cursos em que esta inscrito
+                    auth.requestMatchers(HttpMethod.POST, "/api/cursos/{cursoId}/incricoes").authenticated();//precisa ter o curso e ser o user
+                    auth.requestMatchers(HttpMethod.POST, "/api/cursos/{cursoId}/incricoes/cancelar").authenticated();//precisa ter o curso e ser o user
+
                     auth.anyRequest().authenticated();
                 }
         );

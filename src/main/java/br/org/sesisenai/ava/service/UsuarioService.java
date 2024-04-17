@@ -5,6 +5,7 @@ import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioPostRequestDTO;
 import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioResponseDTO;
 import br.org.sesisenai.ava.entity.Usuario;
 import br.org.sesisenai.ava.repository.UsuarioRepository;
+import br.org.sesisenai.ava.security.models.Authority;
 import br.org.sesisenai.ava.security.models.UserDetailsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Data
 @AllArgsConstructor
@@ -26,6 +29,7 @@ public class UsuarioService {
 
     public UsuarioResponseDTO criarUsuario(UsuarioPostRequestDTO usuarioDTO) {
         Usuario usuario = usuarioDTO.toEntity();
+        usuario.getDetails().setAuthorities(List.of(Authority.USUARIO));
         usuario = usuarioRepository.save(usuario);
         return usuario.toDTO();
     }
