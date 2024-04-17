@@ -5,6 +5,7 @@ import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioPostRequestDTO;
 import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioResponseDTO;
 import br.org.sesisenai.ava.entity.Usuario;
 import br.org.sesisenai.ava.repository.UsuarioRepository;
+import br.org.sesisenai.ava.security.models.UserDetailsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

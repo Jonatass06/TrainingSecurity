@@ -28,6 +28,7 @@ public class UsuarioController {
             UsuarioResponseDTO novoUsuario = usuarioService.criarUsuario(usuarioDTO);
             return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

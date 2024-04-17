@@ -23,9 +23,17 @@ public class SecurityConfig {
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(
-            auth -> {
-                auth.requestMatchers("**").permitAll();
-            }
+                auth -> {
+                    auth.requestMatchers(HttpMethod.POST, "/login");
+                    auth.requestMatchers(HttpMethod.GET, "/login");
+                    auth.requestMatchers(HttpMethod.POST, "/api/instrutor").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/cursos").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/cursos/{id}").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
+                    auth.anyRequest().authenticated();
+                }
         );
         http.securityContext((context) -> context.securityContextRepository(repo));
         http.sessionManagement(config -> {
@@ -34,7 +42,7 @@ public class SecurityConfig {
 //        http.addFilterBefore(filterAuthentication, UsernamePasswordAuthenticationFilter.class);
 
         http.formLogin(Customizer.withDefaults());
-        http.logout(Customizer.withDefaults());
+        http.logout(AbstractHttpConfigurer::disable);
         return http.build();
     }
 

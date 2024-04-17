@@ -2,6 +2,7 @@ package br.org.sesisenai.ava.dto.implementation.usuario;
 
 import br.org.sesisenai.ava.dto.abstraction.CriacaoRequestConversorDTO;
 import br.org.sesisenai.ava.entity.Usuario;
+import br.org.sesisenai.ava.security.models.UserDetailsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -20,9 +21,11 @@ public class UsuarioPostRequestDTO implements CriacaoRequestConversorDTO<Usuario
 
     public Usuario toEntity() {
         Usuario usuario = new Usuario();
-        usuario.getDetails().setUsername(this.nome);
+        UserDetailsEntity details = new UserDetailsEntity();
+        details.setUsername(this.nome);
+        details.setPassword(this.senha);
+        usuario.setDetails(details);
         usuario.setEmail(this.email);
-        usuario.getDetails().setPassword(this.senha);
         usuario.setDataCadastro(LocalDateTime.now());
         return usuario;
     }
