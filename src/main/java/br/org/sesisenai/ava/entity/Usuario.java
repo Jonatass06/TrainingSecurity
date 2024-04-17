@@ -2,6 +2,7 @@ package br.org.sesisenai.ava.entity;
 
 import br.org.sesisenai.ava.dto.abstraction.ResponseConversorDTO;
 import br.org.sesisenai.ava.dto.implementation.usuario.UsuarioResponseDTO;
+import br.org.sesisenai.ava.security.models.UserDetailsEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +25,10 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String nome;
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserDetailsEntity details;
+
     private String email;
-    private String senha;
 
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
@@ -41,7 +42,7 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO> {
     public UsuarioResponseDTO toDTO() {
         UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO();
         usuarioResponseDTO.setId(this.id);
-        usuarioResponseDTO.setNome(this.nome);
+        usuarioResponseDTO.setNome(this.details.getUsername());
         usuarioResponseDTO.setEmail(this.email);
         usuarioResponseDTO.setDataCadastro(this.dataCadastro);
         return usuarioResponseDTO;
@@ -51,9 +52,7 @@ public class Usuario implements ResponseConversorDTO<UsuarioResponseDTO> {
         this.id = id;
     }
 
-    public void setSenha(String senha) {
-        this.senha = new BCryptPasswordEncoder().encode(senha);
-    }
+
 }
 
 

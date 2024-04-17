@@ -33,8 +33,8 @@ public class SecurityConfig {
         });
 //        http.addFilterBefore(filterAuthentication, UsernamePasswordAuthenticationFilter.class);
 
-        http.formLogin(AbstractHttpConfigurer::disable);
-        http.logout(AbstractHttpConfigurer::disable);
+        http.formLogin(Customizer.withDefaults());
+        http.logout(Customizer.withDefaults());
         return http.build();
     }
 

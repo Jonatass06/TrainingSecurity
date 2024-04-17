@@ -15,7 +15,7 @@ public class UsuarioPutRequestDTO implements AtualizacaoRequestConversorDTO<Usua
     private String email;
 
     public Usuario toEntity(Usuario usuario) {
-        usuario.setNome(this.nome);
+        usuario.getDetails().setUsername(this.nome);
         usuario.setEmail(this.email);
         return usuario;
     }

@@ -3,6 +3,7 @@ package br.org.sesisenai.ava.dto.implementation.instrutor;
 import br.org.sesisenai.ava.dto.abstraction.CriacaoRequestConversorDTO;
 import br.org.sesisenai.ava.entity.Instrutor;
 import br.org.sesisenai.ava.entity.Usuario;
+import br.org.sesisenai.ava.security.models.UserDetailsEntity;
 import br.org.sesisenai.ava.service.InstrutorService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,9 +23,11 @@ public class InstrutorPostRequestDTO implements CriacaoRequestConversorDTO<Instr
 
     public Instrutor toEntity() {
         Instrutor instrutor = new Instrutor();
-        instrutor.setNome(this.nome);
+        UserDetailsEntity details = new UserDetailsEntity();
+        details.setPassword(this.senha);
+        details.setUsername(this.nome);
+        instrutor.setDetails(details);
         instrutor.setEmail(this.email);
-        instrutor.setSenha(this.senha);
         instrutor.setAreaEspecializacao(this.areaEspecializacao);
         instrutor.setDataCadastro(LocalDateTime.now());
         return instrutor;

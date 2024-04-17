@@ -32,7 +32,7 @@ public class Instrutor extends Usuario {
     public InstrutorResponseDTO toDTO() {
         InstrutorResponseDTO instrutorResponseDTO = new InstrutorResponseDTO();
         instrutorResponseDTO.setId(this.getId());
-        instrutorResponseDTO.setNome(this.getNome());
+        instrutorResponseDTO.setNome(this.getDetails().getUsername());
         instrutorResponseDTO.setEmail(this.getEmail());
         instrutorResponseDTO.setAreaEspecializacao(this.areaEspecializacao);
         instrutorResponseDTO.setDataCadastro(this.getDataCadastro());

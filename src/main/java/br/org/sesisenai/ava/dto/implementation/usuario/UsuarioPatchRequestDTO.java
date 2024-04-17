@@ -14,7 +14,7 @@ public class UsuarioPatchRequestDTO implements AtualizacaoRequestConversorDTO<Us
     private String senha;
 
     public Usuario toEntity(Usuario usuario) {
-        usuario.setSenha(this.senha);
+        usuario.getDetails().setPassword(this.senha);
         return usuario;
     }
 }
