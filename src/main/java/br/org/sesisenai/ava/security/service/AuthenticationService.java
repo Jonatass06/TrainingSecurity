@@ -21,7 +21,7 @@ public class AuthenticationService implements UserDetailsService {
         Optional<Usuario> usuario = usuarioRepository.findByNome(username);
         if(usuario.isPresent()){
             //TODO:Varia
-            return usuario.get();
+            return new br.org.sesisenai.ava.security.models.UserDetails(usuario.get());
         }
         throw new UsernameNotFoundException("User not found");
 
