@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,14 +28,11 @@ public class AuthenticateController {
 
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(userLogin.getNome(), userLogin.getSenha());
-
             Authentication authentication = authenticationManager.authenticate(token);
             UserDetails user = (UserDetails) authentication.getPrincipal();
 //            Cookie cookie = cookieUtil.gerarCookieJwt(user)
 //            response.addCookie(cookie);
-
             return ResponseEntity.ok("User authenticated");
-
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
